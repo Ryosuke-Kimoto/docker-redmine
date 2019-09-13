@@ -1,0 +1,33 @@
+version: '3.1'
+services:
+  redmine:
+    image: redmine
+    ports:
+      - 8080:3000
+    restart: always
+    environment:
+      REDMINE_DB_MYSQL: mysql
+      REDMINE_DB_PASSWORD: example
+    volumes:
+      - ./plugins:/usr/src/redmine/plugins
+      - ./public/themes:/usr/src/redmine/public/themes
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - '61043:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
+    volumes:
+      - ./docker/db/multibyte.cnf:/etc/mysql/conf.d/multibyte.cnf
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 61042:80
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: example

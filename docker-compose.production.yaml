@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  redmine:
+    image: redmine
+    ports:
+      - 8080:3000
+    restart: always
+    environment:
+      REDMINE_DB_MYSQL: xxxxxxx
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_DB_USERNAME: xxxxxxx
+      REDMINE_DB_PASSWORD: xxxxxxx
+    volumes:
+      - ./plugins:/usr/src/redmine/plugins
+      - ./public/themes:/usr/src/redmine/public/themes
